@@ -100,8 +100,12 @@ Proof.
       * inversion H0.
       * constructor.
       * inversion H0; subst.
-        apply sub_S_Arrow.
-
-
-
-
+        inversion H; subst.
+        constructor.
+        apply IHt2_1 with (t1:=t3_1) (t3:=t1_1) in H4.
+        assumption.
+        assumption.
+        apply IHt2_2 with (t1:=t1_2) (t3:=t3_2) in H8.
+        assumption.
+        assumption.
+Qed.
