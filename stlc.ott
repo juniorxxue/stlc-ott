@@ -1,0 +1,43 @@
+% Simply Typed Lambda Calculus
+
+metavar tvar, x ::=
+        {{ repr-locally-nameless }}
+        {{ tex \mathit{[[tvar]]} }} {{ com term variable }}
+
+metavar Tvar, X ::=
+        {{ repr-locally-nameless }}
+        {{ tex \mathit{[[Tvar]]} }} {{ com type variable }}
+
+grammar
+  type, A, B, C, D :: 'type_' ::= {{ com type }}
+        | Int :: :: int {{ com int }}
+        | Top :: :: top {{ com top }}
+        | A -> B :: :: arrow {{ com function }}
+
+  term, e :: 'term_' ::= {{ com term }}
+        | n :: :: int {{ com int }}
+        | x :: :: var {{ com variable }}
+        | \ x . e :: :: abs (+ bind x in e +) {{ com abstraction }}
+        | e1 e2 :: :: app {{ com application }}
+        | e : A :: :: annotation {{ com type annotation }}
+
+  terminals :: 'terminals_' ::=
+       | \ :: :: lambda {{ tex \lambda }}
+       | -> :: :: arrow {{ tex \rightarrow }}
+       | <: :: :: subtype {{ tex <: }}
+
+defns
+    subtyping :: '' ::=
+  defn
+    A <: B :: :: sub :: sub_ {{ com [[A]] is subtype of [[B]] }} by
+
+    ---------- :: S_Int
+    Int <: Int
+
+    --------- :: S_Top
+    A <: Top
+
+    C <: A
+    B <: D
+    ----------------- :: S_Arrow
+    A -> B <: C -> D
